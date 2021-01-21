@@ -12,7 +12,7 @@ namespace ChillPlaceLevels.Commands
 {
     class Profile
     {
-        [TCPCommand("Check your profile.", UserTrustLevels.User, "Profile", "Prf")]
+        [TCPCommand("Check your profile.", UserTrustLevels.User, "Profile", "Prf", "Level", "Lvl")]
         public static async Task Do(SocketMessage arg, UserState ustate)
         {
             try

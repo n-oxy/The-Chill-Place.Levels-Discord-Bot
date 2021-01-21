@@ -49,7 +49,7 @@ namespace ChillPlaceLevels
                 await Client.StartAsync();
                 await Task.Delay(-1);
             }
-            catch(HttpException e)
+            catch
             {
                 Console.WriteLine("Check auth token.");
             }
@@ -67,6 +67,7 @@ namespace ChillPlaceLevels
             if(!arg.Author.IsBot)
             {
                 var user = Database.GetUser(arg.Author);
+                var guser = (SocketGuildUser)arg.Author;
                 var guild = ((SocketGuildChannel)arg.Channel).Guild;
                 if (!lastSent.Contains(arg.Author.Id))
                 {
@@ -86,7 +87,7 @@ namespace ChillPlaceLevels
                             int firstDecOfToAddPlusXP = int.Parse((toAdd + aguild.XP).ToString().First().ToString());
                             int firstDecOfXP = int.Parse(aguild.XP.ToString().First().ToString());
                             aguild.XP += toAdd;
-                            if (firstDecOfToAddPlusXP != firstDecOfXP & aguild.XP > 999)
+                            if (firstDecOfToAddPlusXP != firstDecOfXP & aguild.XP > 999 & Database.GetGuildSettings(guild).PingUserOnLevelUp)
                                 await arg.Channel.SendMessageAsync($"{arg.Author.Mention} you levelled up to level {(int)(aguild.XP / 1000)}!");
                             addNewG = false;
                             break;

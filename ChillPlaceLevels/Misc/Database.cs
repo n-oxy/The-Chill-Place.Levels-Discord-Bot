@@ -39,5 +39,30 @@ namespace ChillPlaceLevels.Misc
                 };
             }
         }
+        public static string GDir = @".\GuildSettings";
+        private static DirectoryInfo __ = !Directory.Exists(GDir) ? Directory.CreateDirectory(GDir) : null;
+        public static void SaveGuildSettings(GuildSettings GS)
+        {
+            string saveTo = Path.Combine(GDir, GS.Guild.Id.ToString() + ".json");
+            GS.Guild = null;
+            File.WriteAllText(saveTo, JsonConvert.SerializeObject(GS));
+        }
+        public static GuildSettings GetGuildSettings(SocketGuild Guild)
+        {
+            string saveTo = Path.Combine(GDir, Guild.Id.ToString() + ".json");
+            if (File.Exists(saveTo))
+            {
+                var user = JsonConvert.DeserializeObject<GuildSettings>(File.ReadAllText(saveTo));
+                user.Guild = Guild;
+                return user;
+            }
+            else
+            {
+                return new GuildSettings()
+                {
+                    Guild = Guild
+                };
+            }
+        }
     }
 }

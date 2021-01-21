@@ -18,7 +18,8 @@ namespace ChillPlaceLevels.Classes
     {
         public SocketUser DiscordUser;
         public GuildState[] GStates;
-        public UserTrustLevels Trust;    }
+        public UserTrustLevels Trust;
+    }
     public class GuildState
     {
         public ulong GuildId;
