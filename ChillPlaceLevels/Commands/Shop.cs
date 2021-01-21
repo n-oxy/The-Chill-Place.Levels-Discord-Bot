@@ -15,7 +15,7 @@ namespace ChillPlaceLevels.Commands
         [TCPCommand("Buy stuff.", UserTrustLevels.User, "Shop", "Store", "Shopp")]
         public static async Task Do(SocketMessage arg, UserState ustate)
         {
-            
+            Console.WriteLine("A");
         }
     }
 }
