@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\ErrorLog.cs" />
+    <Compile Include="Classes\HostingProperties.cs" />
     <Compile Include="Classes\UserState.cs" />
     <Compile Include="Commands\Profile.cs" />
     <Compile Include="Commands\Shop.cs" />

@@ -10,13 +10,15 @@ using Discord;
 using Discord.WebSocket;
 using System.Threading;
 using ChillPlaceLevels.Misc;
+using Discord.Net;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace ChillPlaceLevels
 {
     class Program
     {
-        private static string Tok = "NzkzNjgwMTA1NzQyNDAxNTQ2.X-vyMw.udbqrcfKJHsiL2v4r529kF4paFo";
-        public static string Prefix = "-";
+        public static HostingProperties HP;
         public static DiscordSocketClient Client = new DiscordSocketClient(); 
         static void Main(string[] args)
         {
@@ -26,9 +28,31 @@ namespace ChillPlaceLevels
         {
             Client.Connected += Client_Connected;
             Client.MessageReceived += Client_MessageReceived;
-            await Client.LoginAsync(TokenType.Bot, Tok);
-            await Client.StartAsync();
-            await Task.Delay(-1);
+            try
+            {
+                string hpLoc = @".\hostingproperties.json";
+                if (File.Exists(hpLoc))
+                    HP = JsonConvert.DeserializeObject<HostingProperties>(File.ReadAllText(hpLoc));
+                else
+                {
+                    Console.WriteLine("Type token and then type prefix");
+                    HP = new HostingProperties()
+                    {
+                        Token = Console.ReadLine(),
+                        Prefix = Console.ReadLine(),
+                    };
+                    File.WriteAllText(hpLoc, JsonConvert.SerializeObject(HP));
+                    Console.WriteLine($"{Path.GetFullPath(hpLoc)} created.");
+                    await MainAsync();
+                }
+                await Client.LoginAsync(TokenType.Bot, HP.Token);
+                await Client.StartAsync();
+                await Task.Delay(-1);
+            }
+            catch(HttpException e)
+            {
+                Console.WriteLine("Check auth token.");
+            }
         }
 
         private static Task Client_Connected()
@@ -77,9 +101,9 @@ namespace ChillPlaceLevels
                     user.GStates = tempList.ToArray();
                     Database.SaveUserState(user);
                 }
-                if (arg.Content.ToLower().StartsWith(Prefix))
+                if (arg.Content.ToLower().StartsWith(HP.Prefix))
                 {
-                    string command = arg.Content.Split(Prefix.ToCharArray())[1].Split(' ')[0];
+                    string command = arg.Content.Split(HP.Prefix.ToCharArray())[1].Split(' ')[0];
                     foreach (var type in Assembly.GetExecutingAssembly().GetTypes())
                         if (type.Namespace == "ChillPlaceLevels.Commands")
                             foreach (var method in type.GetMethods())
