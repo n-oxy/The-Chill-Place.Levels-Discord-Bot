@@ -53,17 +53,27 @@ namespace ChillPlaceLevels
                         lastSent.Remove(arg.Author.Id);
                     }).Start();
                     var tempList = user.GStates.ToList();
-                    if (!tempList.Contains(new GuildState() { GuildId = guild.Id, XP = 0 }))
+                    bool addNewG = true;
+                    foreach(var aguild in tempList)
+                    {
+                        if(aguild.GuildId == guild.Id)
+                        {
+                            int toAdd = new Random().Next(50, 200);
+                            int firstDecOfToAddPlusXP = int.Parse((toAdd + aguild.XP).ToString().First().ToString());
+                            int firstDecOfXP = int.Parse(aguild.XP.ToString().First().ToString());
+                            aguild.XP += toAdd;
+                            if (firstDecOfToAddPlusXP != firstDecOfXP & aguild.XP > 999)
+                                await arg.Channel.SendMessageAsync($"{arg.Author.Mention} you levelled up to level {(int)(aguild.XP / 1000)}!");
+                            addNewG = false;
+                            break;
+                        }
+                    }
+                    if (addNewG)
                         tempList.Add(new GuildState()
                         {
                             GuildId = guild.Id,
-                            XP = new Random().Next(100, 300)
+                            XP = new Random().Next(50, 200)
                         });
-                    for (int i = 0; i < tempList.Count; i++)
-                    {
-                        if (tempList[i].GuildId == guild.Id)
-                            tempList[i].XP = new Random().Next(100, 300);
-                    }
                     user.GStates = tempList.ToArray();
                     Database.SaveUserState(user);
                 }

@@ -13,7 +13,7 @@ namespace ChillPlaceLevels.Misc
     class Database
     {
         public static string Dir = @".\UserStates";
-        private static DirectoryInfo _ = !Directory.Exists(@".\UserStates") ? Directory.CreateDirectory(@".\UserStates") : null;
+        private static DirectoryInfo _ = !Directory.Exists(Dir) ? Directory.CreateDirectory(Dir) : null;
         public static void SaveUserState(UserState User)
         {
             string saveTo = Path.Combine(Dir, User.DiscordUser.Id.ToString() + ".json");

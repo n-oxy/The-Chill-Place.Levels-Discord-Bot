@@ -79,9 +79,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\ErrorLog.cs" />
     <Compile Include="Classes\UserState.cs" />
-    <Compile Include="Commands\Level.cs" />
+    <Compile Include="Commands\Profile.cs" />
+    <Compile Include="Commands\Shop.cs" />
     <Compile Include="Misc\Database.cs" />
+    <Compile Include="Misc\LogHandle.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
