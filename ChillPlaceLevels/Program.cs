@@ -15,7 +15,7 @@ namespace ChillPlaceLevels
 {
     class Program
     {
-        private static string Tok = "NzkzNjgwMTA1NzQyNDAxNTQ2.X-vyMw.udbqrcfKJHsiL2v4r529kF4paFo";
+        private static string Tok = "";
         public static string Prefix = "-";
         public static DiscordSocketClient Client = new DiscordSocketClient(); 
         static void Main(string[] args)
