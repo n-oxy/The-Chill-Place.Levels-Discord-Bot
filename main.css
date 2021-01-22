@@ -1,12 +1,18 @@
 body 
 {
-    background-color: black;
+    background-color: rgb(20, 20, 20);
+    overflow: hidden;
 }
 p
 {
-    color: burlywood;
+    color:  rgb(255, 255, 255);
     font-size: 80%;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+#vxlogo
+{
+    padding: 0%;
+    width: 100vw;
 }
 #outPopUp 
 {
@@ -20,5 +26,19 @@ p
     top: 50%;
     left: 50%;
     margin: -50px 0 0 -200px;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(20, 20, 20, 0.9);
+    border-radius: 20px;
+}
+#logDiv 
+{
+    display: flex;
+    align-items: center;
+    position: absolute;
+    justify-content: center;
+    width: 400px;
+    height: 200px;
+    z-index: 14;
+    top: 50%;
+    left: 50%;
+    margin: -50px 0 0 -200px;
 }
