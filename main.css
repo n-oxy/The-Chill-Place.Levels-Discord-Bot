@@ -1,0 +1,24 @@
+body 
+{
+    background-color: black;
+}
+p
+{
+    color: burlywood;
+    font-size: 80%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+#outPopUp 
+{
+    display: flex;
+    align-items: center;
+    position: absolute;
+    justify-content: center;
+    width: 400px;
+    height: 100px;
+    z-index: 15;
+    top: 50%;
+    left: 50%;
+    margin: -50px 0 0 -200px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
